@@ -1,78 +1,89 @@
-import React, { useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
-import clsx from 'clsx';
-import PropTypes from 'prop-types';
+import React, { useState } from "react";
+import { Link as RouterLink } from "react-router-dom";
+import clsx from "clsx";
+import PropTypes from "prop-types";
 import {
-  AppBar,
-  Badge,
   Box,
   Hidden,
   IconButton,
   Toolbar,
-  makeStyles
-} from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
-import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
-import InputIcon from '@material-ui/icons/Input';
-import Logo from 'src/components/Logo';
+  makeStyles,
+  Typography,
+  List,
+  ListItem,
+  ListItemText,
+} from "@material-ui/core";
+import MenuIcon from "@material-ui/icons/Menu";
+// import Logo from "src/components/Logo";
+
+const text = {
+  name: "Jude Hokyoon Woo",
+  about: "Know More",
+  experience: "Experience",
+  contact: "Contact",
+};
+
+const hrefs = {
+  about: "/about",
+  contact: "/contact",
+  experience: "/experience",
+};
 
 const useStyles = makeStyles(() => ({
-  root: {},
-  avatar: {
-    width: 60,
-    height: 60
-  }
+  root: {
+    paddingTop: 40,
+    paddingBottom: 40,
+    paddingLeft: 60,
+    paddingRight: 60,
+    width: "100%",
+  },
+  list: {
+    display: "flex",
+  },
 }));
 
-const TopBar = ({
-  className,
-  onMobileNavOpen,
-  ...rest
-}) => {
+function ListItemLink(props) {
+  return <ListItem button component="a" {...props} />;
+}
+
+const TopBar = ({ className, onMobileNavOpen, ...rest }) => {
   const classes = useStyles();
-  const [notifications] = useState([]);
 
   return (
-    <AppBar
-      className={clsx(classes.root, className)}
-      elevation={0}
-      {...rest}
-    >
+    <header className={clsx(classes.root, className)} {...rest}>
       <Toolbar>
         <RouterLink to="/">
-          <Logo />
+          <Typography className={classes.name} color="textPrimary" variant="h5">
+            {text.name}
+          </Typography>
         </RouterLink>
         <Box flexGrow={1} />
         <Hidden mdDown>
-          <IconButton color="inherit">
-            <Badge
-              badgeContent={notifications.length}
-              color="primary"
-              variant="dot"
-            >
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-          <IconButton color="inherit">
-            <InputIcon />
-          </IconButton>
+          <List className={classes.list} aria-label="header menus">
+            <ListItemLink href={hrefs.about}>
+              <ListItemText primary={text.about} />
+            </ListItemLink>
+            <ListItemLink href={hrefs.contact}>
+              <ListItemText primary={text.contact} />
+            </ListItemLink>
+            <ListItemLink href={hrefs.experience}>
+              <ListItemText primary={text.experience} />
+            </ListItemLink>
+          </List>
         </Hidden>
         <Hidden lgUp>
-          <IconButton
-            color="inherit"
-            onClick={onMobileNavOpen}
-          >
+          <IconButton color="inherit" onClick={onMobileNavOpen}>
             <MenuIcon />
           </IconButton>
         </Hidden>
       </Toolbar>
-    </AppBar>
+    </header>
   );
 };
 
 TopBar.propTypes = {
   className: PropTypes.string,
-  onMobileNavOpen: PropTypes.func
+  onMobileNavOpen: PropTypes.func,
 };
 
 export default TopBar;

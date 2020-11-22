@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import clsx from "clsx";
 import PropTypes from "prop-types";
 import {
@@ -14,7 +14,6 @@ import {
   Link,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
-// import Logo from "src/components/Logo";
 
 const text = {
   name: "Jude Hokyoon Woo",
@@ -97,7 +96,6 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     "&::before": {
       content: "'|'",
-      display: "block",
       position: "absolute",
       top: 0,
       left: -50,

@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     padding: 20,
     paddingTop: 170,
     width: "100%",
-    height: 3000,
+    // height: 3000,
     backgroundColor: theme.palette.background.default,
   },
 }));

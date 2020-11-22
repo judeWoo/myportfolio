@@ -28,20 +28,21 @@ const hrefs = {
   contact: "/",
 };
 
-const unBlended = (theme) => ({
-  "mix-blend-mode": "difference",
-});
-
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: 20,
     width: "100%",
     color: theme.palette.text.light,
+    "mix-blend-mode": "difference",
+    top: 0,
+    left: "auto",
+    right: 0,
+    position: "fixed",
+    zIndex: 10,
   },
   home: {
     cursor: "pointer",
     textAlign: "left",
-    ...unBlended(theme),
     "&:hover": {
       textDecoration: "none",
     },
@@ -56,7 +57,6 @@ const useStyles = makeStyles((theme) => ({
   },
   list: {
     display: "flex",
-    ...unBlended(theme),
   },
   listItemLink: {
     display: "flex",

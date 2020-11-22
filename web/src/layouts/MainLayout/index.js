@@ -7,9 +7,13 @@ const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.default,
   },
-  wrapper: {},
-  contentContainer: {},
-  content: {},
+  content: {
+    padding: 20,
+    paddingTop: 170,
+    width: "100%",
+    height: 3000,
+    backgroundColor: theme.palette.background.default,
+  },
 }));
 
 const DashboardLayout = () => {
@@ -19,12 +23,8 @@ const DashboardLayout = () => {
   return (
     <div className={classes.root}>
       <TopBar onMobileNavOpen={() => setMobileNavOpen(true)} />
-      <div className={classes.wrapper}>
-        <div className={classes.contentContainer}>
-          <div className={classes.content}>
-            <Outlet />
-          </div>
-        </div>
+      <div className={classes.content}>
+        <Outlet />
       </div>
     </div>
   );

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
 import clsx from "clsx";
 import PropTypes from "prop-types";
 import {
@@ -12,12 +11,14 @@ import {
   List,
   ListItem,
   ListItemText,
+  Link,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 // import Logo from "src/components/Logo";
 
 const text = {
   name: "Jude Hokyoon Woo",
+  role: "Interactive Developer",
   about: "Know More",
   contact: "kw021992@gmail.com",
 };
@@ -29,20 +30,29 @@ const hrefs = {
 
 const unBlended = (theme) => ({
   "mix-blend-mode": "difference",
-  color: theme.palette.text.light,
 });
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    paddingTop: 20,
-    paddingBottom: 20,
-    paddingLeft: 30,
-    paddingRight: 30,
+    padding: 20,
     width: "100%",
+    color: theme.palette.text.light,
   },
   home: {
-    fontWeight: 700,
+    cursor: "pointer",
+    textAlign: "left",
     ...unBlended(theme),
+    "&:hover": {
+      textDecoration: "none",
+    },
+  },
+  title: {
+    fontWeight: 700,
+    fontSize: "4rem",
+  },
+  subTitle: {
+    fontWeight: 700,
+    fontSize: "2rem",
   },
   list: {
     display: "flex",
@@ -53,13 +63,33 @@ const useStyles = makeStyles((theme) => ({
     whiteSpace: "nowrap",
     paddingLeft: 0,
     paddingRight: 0,
+    position: "relative",
+    "&::after": {
+      content: "''",
+      display: "block",
+      width: "100%",
+      height: 1,
+      position: "absolute",
+      top: 38,
+      left: 0,
+      background: theme.palette.background.default,
+      transform: "scaleX(0)",
+      transformOrigin: "right top",
+      transition: theme.transitions.create("transform", {
+        easing: theme.transitions.easing.easInOut,
+        duration: theme.transitions.duration.standard,
+      }),
+    },
+    "&:hover": {
+      "&::after": {
+        transform: "scaleX(1)",
+        transformOrigin: "left top",
+      },
+    },
   },
   link: {
     "&:visited": {
       color: "inherit",
-    },
-    "&:hover": {
-      color: theme.palette.primary.main,
     },
   },
   preDivider: {
@@ -75,9 +105,12 @@ const useStyles = makeStyles((theme) => ({
       height: "100%",
       display: "flex",
       alignItems: "center",
-      fontSize: 24,
+      fontSize: 20,
       color: theme.palette.text.light,
     },
+  },
+  toolbar: {
+    alignItems: "flex-start",
   },
 }));
 
@@ -90,16 +123,19 @@ const TopBar = ({ className, onMobileNavOpen, ...rest }) => {
 
   return (
     <header className={clsx(classes.root, className)} {...rest}>
-      <Toolbar>
-        <RouterLink to="/">
-          <Typography
-            className={clsx(classes.home, classes.link)}
-            color="textPrimary"
-            variant="h1"
-          >
+      <Toolbar className={classes.toolbar} disableGutters={true}>
+        <Link className={clsx(classes.home, classes.link)} href="/">
+          <Typography className={classes.title} color="primary" variant="h1">
             {text.name}
           </Typography>
-        </RouterLink>
+          <Typography
+            className={classes.subTitle}
+            color="primary"
+            variant="subtitle1"
+          >
+            {text.role}
+          </Typography>
+        </Link>
         <Box flexGrow={1} />
         <Hidden mdDown>
           <List

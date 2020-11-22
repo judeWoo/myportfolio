@@ -19,31 +19,70 @@ import MenuIcon from "@material-ui/icons/Menu";
 const text = {
   name: "Jude Hokyoon Woo",
   about: "Know More",
-  experience: "Experience",
-  contact: "Contact",
+  contact: "kw021992@gmail.com",
 };
 
 const hrefs = {
   about: "/about",
-  contact: "/contact",
-  experience: "/experience",
+  contact: "/",
 };
 
-const useStyles = makeStyles(() => ({
+const unBlended = (theme) => ({
+  "mix-blend-mode": "difference",
+  color: theme.palette.text.light,
+});
+
+const useStyles = makeStyles((theme) => ({
   root: {
-    paddingTop: 40,
-    paddingBottom: 40,
-    paddingLeft: 60,
-    paddingRight: 60,
+    paddingTop: 20,
+    paddingBottom: 20,
+    paddingLeft: 30,
+    paddingRight: 30,
     width: "100%",
+  },
+  home: {
+    fontWeight: 700,
+    ...unBlended(theme),
   },
   list: {
     display: "flex",
+    ...unBlended(theme),
+  },
+  listItemLink: {
+    display: "flex",
+    whiteSpace: "nowrap",
+    paddingLeft: 0,
+    paddingRight: 0,
+  },
+  link: {
+    "&:visited": {
+      color: "inherit",
+    },
+    "&:hover": {
+      color: theme.palette.primary.main,
+    },
+  },
+  preDivider: {
+    marginLeft: 100,
+    position: "relative",
+    "&::before": {
+      content: "'|'",
+      display: "block",
+      position: "absolute",
+      top: 0,
+      left: -50,
+      pointerEvents: "none",
+      height: "100%",
+      display: "flex",
+      alignItems: "center",
+      fontSize: 24,
+      color: theme.palette.text.light,
+    },
   },
 }));
 
 function ListItemLink(props) {
-  return <ListItem button component="a" {...props} />;
+  return <ListItem component="a" {...props} />;
 }
 
 const TopBar = ({ className, onMobileNavOpen, ...rest }) => {
@@ -53,21 +92,36 @@ const TopBar = ({ className, onMobileNavOpen, ...rest }) => {
     <header className={clsx(classes.root, className)} {...rest}>
       <Toolbar>
         <RouterLink to="/">
-          <Typography className={classes.name} color="textPrimary" variant="h5">
+          <Typography
+            className={clsx(classes.home, classes.link)}
+            color="textPrimary"
+            variant="h1"
+          >
             {text.name}
           </Typography>
         </RouterLink>
         <Box flexGrow={1} />
         <Hidden mdDown>
-          <List className={classes.list} aria-label="header menus">
-            <ListItemLink href={hrefs.about}>
+          <List
+            component="nav"
+            className={classes.list}
+            aria-label="header menus"
+          >
+            <ListItemLink
+              className={clsx(classes.listItemLink, classes.link)}
+              href={hrefs.about}
+            >
               <ListItemText primary={text.about} />
             </ListItemLink>
-            <ListItemLink href={hrefs.contact}>
+            <ListItemLink
+              className={clsx(
+                classes.listItemLink,
+                classes.link,
+                classes.preDivider
+              )}
+              href={hrefs.contact}
+            >
               <ListItemText primary={text.contact} />
-            </ListItemLink>
-            <ListItemLink href={hrefs.experience}>
-              <ListItemText primary={text.experience} />
             </ListItemLink>
           </List>
         </Hidden>

@@ -1,5 +1,4 @@
 import { createMuiTheme, colors } from "@material-ui/core";
-import typography from "./typography";
 
 const theme = createMuiTheme({
   palette: {
@@ -17,9 +16,19 @@ const theme = createMuiTheme({
     text: {
       primary: colors.blueGrey[900],
       secondary: colors.blueGrey[600],
+      dark: colors.grey[900],
+      light: colors.common.white,
     },
   },
-  typography,
+  typography: {
+    fontFamily: [
+      "Manrope",
+      "Roboto",
+      "Helvetica Neue",
+      "Arial",
+      "sans-serif",
+    ].join(","),
+  },
 });
 
 export default theme;
